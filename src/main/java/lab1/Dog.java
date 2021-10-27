@@ -1,7 +1,5 @@
 package lab1;
 
-import lab1.Animal;
-
 public class Dog  extends Animal {
 
     static int count;
