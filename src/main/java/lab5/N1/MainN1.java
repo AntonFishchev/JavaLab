@@ -1,10 +1,10 @@
-package lab5;
+package lab5.N1;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-public class Main {
+public class MainN1 {
     public static void main(String[] args){
         String[] wordsArray = {
                 "Один","Один",
