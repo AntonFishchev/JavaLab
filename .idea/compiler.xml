@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="LabsGIT" options="--add-exports jdk.hotspot.agent/sun.jvm.hotspot.runtime=ALL-UNNAMED" />
+      <module name="LabsGIT" options="" />
     </option>
   </component>
 </project>
