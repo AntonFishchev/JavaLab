@@ -1,9 +1,9 @@
 package lab8.N1;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import lab8.N2.Employee;
+
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,28 +18,41 @@ public class MainN1 {
                 "Один","Один",
                 "Два","Два","Два","Два","Два","Два",
                 "Три","Три",
-                "Четыре",
                 "Пять","Пять",
                 "Шесть",
                 "Семь","Семь","Семь","Семь","Семь","Семь","Семь","Семь",
+                "Четыре","Четыре","Четыре","Четыре","Четыре","Четыре","Четыре","Четыре","Четыре","Четыре","Четыре","Четыре",
                 "Восемь","Восемь","Восемь","Восемь","Восемь","Восемь","Восемь","Восемь","Восемь","Восемь","Восемь","Восемь",
-                "Девять",
-                "Десять",
+                "Девять", "Десять",
                 "Одинадцать","Одинадцать",
         };
 
-        Stream<String> stream = Stream.of(wordsArray);
-        List<String> list = stream.collect(Collectors.toList());
-
-        String mostRepeatedWord = list.stream()
+        Long maxAmount = Stream.of(wordsArray)
                 .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
                 .entrySet()
                     .stream()
                     .max(Comparator.comparing(Map.Entry::getValue))
                     .get()
-                    .getKey();;
+                    .getValue();
 
-        System.out.println(mostRepeatedWord);
+        Stream.of(wordsArray)
+                .collect(Collectors.groupingBy(x -> x, Collectors.counting())).entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() == maxAmount)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+
+
+//        String mostRepeatedWord = list.stream()
+//                .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
+//                .entrySet()
+//                    .stream()
+//                    .max(Comparator.comparing(Map.Entry::getValue))
+//                    .get()
+//                    .getKey();
+//
+//        System.out.println(mostRepeatedWord);
 
     }
 }

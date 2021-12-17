@@ -6,15 +6,15 @@ public class MainN2 {
     public static void main(String[] args){
         Phonebook phonebook = new Phonebook();
 
-        phonebook.set("Ананасов", "1");
-        phonebook.set("Барбарисов", "2");
-        phonebook.set("Вишнев", "3");
-        phonebook.set("Горохов", "4");
-        phonebook.set("Дынев", "5");
-        phonebook.set("Вишнев", "6");
-        phonebook.set("Вишнев", "7");
+        phonebook.add("Ананасов", "1");
+        phonebook.add("Барбарисов", "2");
+        phonebook.add("Вишнев", "3");
+        phonebook.add("Горохов", "4");
+        phonebook.add("Дынев", "5");
+        phonebook.add("Вишнев", "6");
+        phonebook.add("Горохов", "7");
 
-        ArrayList<String> outPhones = phonebook.get("Вишнев");
+        ArrayList<String> outPhones = phonebook.get("Горохов");
         for(String item : outPhones){
             System.out.println(item);
         }

@@ -17,6 +17,11 @@ public class Human implements IParticipant {
     }
 
     @Override
+    public Boolean IsSuperJumper() {
+        return false;
+    }
+
+    @Override
     public int ToJump(){
         return heigthJump;
     }

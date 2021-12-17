@@ -4,14 +4,18 @@ public class Main {
     public static void main(String[] args){
         IParticipant[] arr1 = {
                 new Human("Вася", 120, 2300),
-                new Cat("Барсик", 150, 600),
+                new Cat("Барсик", 99, 600),
                 new Robot("R2D2", 40, 40)
         };
 
         IObstacle[] arr2 = {
+                new Wall(WallHeigth.HIGH),
+                new Wall(WallHeigth.HIGH),
+
                 new Wall(WallHeigth.LOW),
                 new Treadmill(TreadmillLength.SHORT),
-                new Wall(WallHeigth.HIGH)
+
+                new Wall(WallHeigth.LOW)
         };
 
         for(IParticipant a : arr1) {

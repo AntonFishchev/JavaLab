@@ -1,5 +1,10 @@
 package lab6;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.Semaphore;
+
 public class Main {
 
     /**
@@ -15,8 +20,9 @@ public class Main {
      * Для второго метода замеряете время разбивки массива на 2, просчета каждого из двух массивов и склейки.
      */
 
-    static final int size = 10000000;
+    static final int size = 120000000;
     static final int half = size / 2;
+    static final int countThread = 6;
 
     public static void main(String[] args) throws InterruptedException {
         method1();
@@ -34,41 +40,56 @@ public class Main {
         }
 
         System.out.println("Время выполнения 1 метода - " + (System.currentTimeMillis() - start) + " мс");
+
+        System.out.println(arr[size - 1]);
     }
 
 
     public static synchronized void method2() throws InterruptedException {
 
         float[] arr = new float[size];
-        for (int i = 0; i < arr.length; i++) { arr[i] = 1; }
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = 1;
+        }
 
         long a = System.currentTimeMillis();
 
-        float[] arr1 = new float[half];
-        float[] arr2 = new float[half];
+        ArrayList<float[]> arrs = new ArrayList<>();
 
-        MyThread thread1 = new MyThread();
-        MyThread thread2 = new MyThread();
+        int countSubArrays = 1;
+        for (int i = 0; i < countThread; i++){
+            float[] subArray = new float[arr.length / countThread];
+            System.arraycopy(arr, (countSubArrays - 1) * arr.length / countThread, subArray, 0, arr.length / countThread);
+            arrs.add(subArray);
+            countSubArrays++;
+        }
 
-        System.arraycopy(arr, 0, arr1, 0, half);
-        System.arraycopy(arr, half, arr2, 0, half);
+        MyThread[] threads = new MyThread[countThread];
 
-        thread1.arr = arr1;
-        thread2.arr = arr2;
+        threads[0] = new MyThread(arrs.get(0), 0);
+        threads[0].start();
+        for (int i = 1; i < countThread; i++){
+            threads[i] = new MyThread(arrs.get(i), arr.length / countThread * i - 1);
+            threads[i].start();
+        }
 
-        thread1.start();
-        thread2.start();
+        for (MyThread item : threads){
+            item.join();
+        }
 
-        thread1.join();
-        thread2.join();
+        for(int i = 0; i < countThread; i++){
+            arrs.set(i, threads[i].arr);
+        }
 
-        arr1 = thread1.arr;
-        arr2 = thread2.arr;
-
-        System.arraycopy(arr1, 0, arr, 0, half);
-        System.arraycopy(arr2, 0, arr, half, half);
+        countSubArrays = 1;
+        for (int i = 0; i < countThread; i++){
+            System.arraycopy(arrs.get(i), 0, arr, (countSubArrays - 1) * arr.length / countThread, arr.length / countThread);
+            countSubArrays++;
+        }
 
         System.out.println("Время выполнения 2 метода - " + (System.currentTimeMillis() - a) + " мс");
+
+        System.out.println(arr[size - 1]);
     }
 }
 

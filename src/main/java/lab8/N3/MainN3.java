@@ -2,7 +2,10 @@ package lab8.N3;
 
 import lab8.N2.Employee;
 
+import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,35 +18,39 @@ public class MainN3 {
 
     public static void main(String[] args) {
         Employee[] arr = {
-                new Employee("Вася",     25, 19000),
-                new Employee("Антон",    40, 43000),
-                new Employee("Ольга",    23, 26000),
-                new Employee("Анатолий", 29, 33000),
-                new Employee("Петр",     35, 38000),
-                new Employee("Николай",  30, 35000),
-                new Employee("Егор",     19, 17000),
+                new Employee("Вася",     25, 19000, 1),
+                new Employee("Антон",    40, 43000, 2),
+                new Employee("Ольга",    23, 26000, 1),
+                new Employee("Анатолий", 29, 33000, 2),
+                new Employee("Петр",     35, 38000, 2),
+                new Employee("Николай",  30, 35000, 1),
+                new Employee("Егор",     19, 17000, 1),
         };
 
 
-        OldEmployee(arr, 3);
+        OldEmployee(arr, 3, 1);
     }
 
-    public static void OldEmployee(Employee[] arr, int n){
-        System.out.print(n + " самых старших сотрудников зовут: ");
-        List<String> name = Arrays.stream(arr)
+    public static void OldEmployee(Employee[] arr, int n, int department){
+//        System.out.print(n + " самых старших сотрудников зовут: ");
+//        List<String> name = Arrays.stream(arr)
+//                .filter(employee -> employee.getDepartment() == department)
+//                .sorted((employee1, employee2) -> employee2.getAge() - employee1.getAge() )
+//                .limit(n)
+//                .sorted(Comparator.comparing(Employee::getName).reversed())
+//                .map(person -> person.getName())
+//                .collect(Collectors.toList())
+//                ;
+
+        String name = Arrays.stream(arr)
+                .filter(employee -> employee.getDepartment() == department)
                 .sorted((employee1, employee2) -> employee2.getAge() - employee1.getAge() )
                 .limit(n)
+                .sorted(Comparator.comparing(Employee::getName).reversed())
                 .map(person -> person.getName())
-                .collect(Collectors.toList());
+                .collect(Collectors.joining(", ", n + " самых старших сотрудников зовут: ", ";"));
 
-        for(String item : name){
-            if (item.equals(name.get(name.size() - 1))){
-                System.out.print(item + ";");
-            } else {
-                System.out.print(item + ", ");
-            }
-        }
-
+        System.out.println(name);
 
         System.out.println("\n\nПроверка:");
         Arrays.stream(arr)

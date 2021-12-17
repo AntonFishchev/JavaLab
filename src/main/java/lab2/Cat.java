@@ -1,6 +1,6 @@
 package lab2;
 
-public class Cat implements IParticipant {
+public class Cat implements IParticipant, ISuperJump {
     private String name;
     private Integer heigthJump;
     private Integer lengthRun;
@@ -14,6 +14,22 @@ public class Cat implements IParticipant {
 
     public String GetName(){
         return name;
+    }
+
+    @Override
+    public Boolean IsSuperJumper() {
+        return true;
+    }
+
+    public Boolean superJump = true;
+    public Boolean SuperJump(){
+        if (superJump){
+            superJump = false;
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override

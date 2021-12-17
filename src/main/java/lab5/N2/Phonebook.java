@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Phonebook {
     private HashMap<String, ArrayList<String>> _phonebook = new HashMap<>();
 
-    public void set(String name, String tel){
+    public void add(String name, String tel){
         ArrayList<String> phonesOnName = new ArrayList<>();
         if(_phonebook.get(name) == null){
             phonesOnName.add(tel);

@@ -9,6 +9,10 @@ public class Wall implements IObstacle {
 
     @Override
     public boolean Passing(IParticipant participant) {
+        if (participant.IsSuperJumper() && participant.ToJump() < heigth ) {
+            ISuperJump superJumper = (ISuperJump) participant;
+            return superJumper.SuperJump();
+        }
         return (participant.ToJump() > heigth);
     }
 }

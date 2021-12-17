@@ -8,6 +8,12 @@ CREATE TABLE students (
     PRIMARY KEY (id)
 );
 
+ALTER TABLE students
+ALTER COLUMN serialPassport
+TYPE smallint,
+ALTER COLUMN numberPassport
+TYPE varchar(6);
+
 INSERT INTO students VALUES (1, 'Антонов А.А.', 3315, 123321);
 INSERT INTO students VALUES (2, 'Баранов Б.Б.', 3315, 157345);
 INSERT INTO students VALUES (3, 'Воронцов В.В.', 3314, 946738);
@@ -59,6 +65,17 @@ INSERT INTO progress VALUES (13, 3, 3, 3);
 INSERT INTO progress VALUES (14, 4, 3, 2); --
 INSERT INTO progress VALUES (15, 5, 3, 5);
 
+ALTER TABLE progress
+DROP CONSTRAINT progress_subject_fkey,
+ADD CONSTRAINT progress_subject_fkey
+    FOREIGN KEY(subject)
+    REFERENCES subjects (id)
+    ON DELETE CASCADE;
+
+delete from subjects
+where name = 'УД';
+
+
 -- 5
 SELECT st.name AS "Студент",
        sub.name AS "Предмет",
@@ -68,6 +85,26 @@ FROM students st JOIN progress p
      ON sub.id = p.subject
 WHERE sub.name = 'ООП' AND
       p.rating > 3;
+
+
+SELECT st.name AS "Студент",
+       sub.name AS "Предмет",
+       p.rating AS "Оценка"
+FROM students st JOIN progress p
+     ON st.id = p.student JOIN subjects sub
+     ON sub.id = p.subject
+WHERE p.rating = 2;
+
+SELECT st.name AS "Студент",
+       sub.name AS "Предмет",
+       p.rating AS "Оценка"
+FROM students st JOIN progress p
+     ON st.id = p.student JOIN subjects sub
+     ON sub.id = p.subject
+WHERE p.rating = 2
+ORDER BY st.name
+LIMIT 3 OFFSET 1;
+
 
 -- 6
 ALTER TABLE progress

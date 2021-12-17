@@ -3,7 +3,7 @@ package lab4.N3;
 import java.util.ArrayList;
 
 public class Box {
-    private ArrayList<Fruit> contants = new ArrayList<>();
+    protected ArrayList<Fruit> contants = new ArrayList<>();
 
     public ArrayList<Fruit> GetContants() {
         return contants;
@@ -17,6 +17,7 @@ public class Box {
         System.out.println("\nСодержимое коробки:");
         for (Fruit item : contants){
             System.out.println("Фрукт - " + item.GetTypeFruit() + " | Вес - " + item.GetWeigth());
+            // System.out.println(item);
         }
         System.out.println();
     }
@@ -29,7 +30,6 @@ public class Box {
         } else {
             System.out.println("В коробке лежит другой тип фрукта - " + contants.get(0).GetTypeFruit() + ", а не - " + fruit.GetTypeFruit());
         }
-
     }
 
     public float GetWeight(){
