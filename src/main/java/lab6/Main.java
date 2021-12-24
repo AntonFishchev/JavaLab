@@ -1,9 +1,6 @@
 package lab6;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.Semaphore;
 
 public class Main {
 
@@ -59,7 +56,13 @@ public class Main {
         int countSubArrays = 1;
         for (int i = 0; i < countThread; i++){
             float[] subArray = new float[arr.length / countThread];
-            System.arraycopy(arr, (countSubArrays - 1) * arr.length / countThread, subArray, 0, arr.length / countThread);
+            System.arraycopy(
+                    arr,
+                    i * arr.length / countThread,
+                    subArray,
+                    0,
+                    arr.length / countThread
+            );
             arrs.add(subArray);
             countSubArrays++;
         }
@@ -81,9 +84,9 @@ public class Main {
             arrs.set(i, threads[i].arr);
         }
 
-        countSubArrays = 1;
+        //countSubArrays = 1;
         for (int i = 0; i < countThread; i++){
-            System.arraycopy(arrs.get(i), 0, arr, (countSubArrays - 1) * arr.length / countThread, arr.length / countThread);
+            System.arraycopy(arrs.get(i), 0, arr, i * arr.length / countThread, arr.length / countThread);
             countSubArrays++;
         }
 

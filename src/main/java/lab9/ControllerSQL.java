@@ -28,7 +28,6 @@ public class ControllerSQL {
         try {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             if (!connection.isClosed()){
-                //System.out.println("Cоединение с бд установлено - " + this.getClass().getSimpleName());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,15 +48,15 @@ public class ControllerSQL {
             if (annotation instanceof Table) {
                 try {
                     Statement statement = Connect().createStatement();
-                    try {
-                        String dropSQL = "DROP TABLE " + ((Table) annotation).name() + ";";
-                        System.out.println(dropSQL);
-                        statement.execute(dropSQL);
-                        System.out.println("Таблица " + ((Table) annotation).name() + " удалена");
-                    } catch (SQLException e){
-                        e.printStackTrace();
-                        System.out.println("Таблица " + ((Table) annotation).name() + " не удалена");
-                    }
+//                    try {
+//                        String dropSQL = "DROP TABLE " + ((Table) annotation).name() + ";";
+//                        System.out.println(dropSQL);
+//                        statement.execute(dropSQL);
+//                        System.out.println("Таблица " + ((Table) annotation).name() + " удалена");
+//                    } catch (SQLException e){
+//                        e.printStackTrace();
+//                        System.out.println("Таблица " + ((Table) annotation).name() + " не удалена");
+//                    }
 
                     try {
                         String createSQL = "CREATE TABLE " + ((Table) annotation).name() + "();";
